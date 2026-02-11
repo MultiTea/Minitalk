@@ -1,34 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_isascii.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lbolea <lbolea@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/10 19:31:15 by lbolea            #+#    #+#             */
-/*   Updated: 2026/02/10 20:29:39 by lbolea           ###   ########.fr       */
+/*   Created: 2025/11/08 15:50:31 by lbolea            #+#    #+#             */
+/*   Updated: 2025/11/20 15:06:08 by lbolea           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <signal.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <sys/select.h>
-#include <unistd.h>
+#include "libft.h"
 
-void	handler(int signum)
+//#include <ctype.h>
+//#include <stdio.h>
+
+int	ft_isascii(int c)
 {
-	printf("OFF");
+	return (c >= 0 && c <= 127);
 }
 
-int	main(int argc, char **argv)
-{
-	__pid_t	server;
-
-	server = argv[1];
-	if (argc < 2)
-		return (0);
-	if (signal(SIGINT, handler))
-		return (0);
-	printf("ON");
-}
+// int	main(int argc, char *argv[])
+//{
+// int i;
+//
+// i = 1;
+// while ((i != argc))
+//{
+// printf("Input : %c\n", *argv[i]);
+// printf("Mine : %d\n", ft_isascii(*argv[i]));
+// printf("Real : %d\n\n", isascii(*argv[i]));
+// i++;
+//}
+// return (0);
+//}
