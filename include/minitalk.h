@@ -6,12 +6,15 @@
 /*   By: lbolea <lbolea@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/11 11:21:57 by lbolea            #+#    #+#             */
-/*   Updated: 2026/02/11 18:04:44 by lbolea           ###   ########.fr       */
+/*   Updated: 2026/02/12 09:23:38 by lbolea           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINITALK_H
 # define MINITALK_H
+
+# define _XOPEN_SOURCE 700
+# define _POSIX_C_SOURCE 200809L
 
 # include "../libs/Libft/libft.h"
 # include "../libs/printf/include/ft_printf.h"

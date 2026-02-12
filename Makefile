@@ -6,7 +6,7 @@
 #    By: lbolea <lbolea@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/11/20 15:13:12 by lbolea            #+#    #+#              #
-#    Updated: 2026/02/11 17:14:18 by lbolea           ###   ########.fr        #
+#    Updated: 2026/02/12 09:29:12 by lbolea           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,7 +37,7 @@ DEPS		:= $(OBJS:.o=.d)
 
 #FLAGS
 CC 			:= cc
-CCFLAGS 	:= -Wall -Wextra -Werror
+CCFLAGS 	:= -Wall -Wextra -Werror -D _DEFAULT_SOURCE
 AR 			:= ar
 ARFLAGS		:= rcs
 LDFLAGS     := $(addprefix -L,$(dir $(LIBS_TARGET)))
@@ -57,8 +57,8 @@ GREEN 	= \033[0;32m
 all: $(CLIENT) $(SERVER)
 
 $(CLIENT) $(SERVER): $(BUILD_DIR)/$(CLIENT).o $(BUILD_DIR)/$(SERVER).o $(LIBS_TARGET)
-	@$(CC) $(LDFLAGS) $(BUILD_DIR)/$(CLIENT).o $(LDLIBS) -o $(CLIENT)
-	@$(CC) $(LDFLAGS) $(BUILD_DIR)/$(SERVER).o $(LDLIBS) -o $(SERVER)
+	@$(CC) $(CCFLAGS) $(LDFLAGS) $(BUILD_DIR)/$(CLIENT).o $(LDLIBS) -o $(CLIENT)
+	@$(CC) $(CCFLAGS) $(LDFLAGS) $(BUILD_DIR)/$(SERVER).o $(LDLIBS) -o $(SERVER)
 	@echo "$(GREEN)[OK]$(DEF) CREATED $(CLIENT) & $(SERVER)"
 
 $(LIBS_TARGET):
