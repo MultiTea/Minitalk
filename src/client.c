@@ -6,58 +6,68 @@
 /*   By: lbolea <lbolea@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/11 11:21:36 by lbolea            #+#    #+#             */
-/*   Updated: 2026/02/12 14:15:55 by lbolea           ###   ########.fr       */
+/*   Updated: 2026/02/13 23:39:01 by lbolea           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minitalk.h"
 
+int		g_ack;
+
+void	handler(int sig)
+{
+	(void)sig;
+	g_ack = 1;
+}
+
+void	send_bit(int pid, unsigned char b)
+{
+	int	pos;
+
+	pos = 7;
+	while (pos >= 0)
+	{
+		g_ack = 0;
+		if ((b >> pos) & 1)
+			kill(pid, SIGUSR2);
+		else
+			kill(pid, SIGUSR1);
+		while (g_ack == 0)
+			pause();
+		pos--;
+	}
+}
+
+void	send_string(int pid, char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+	{
+		send_bit(pid, str[i]);
+		i++;
+	}
+	send_bit(pid, '\0');
+}
+
 int	main(int argc, char **argv)
 {
-	pid_t	srv_pid;
-	int		str_len;
-	int		i;
-	int		j;
-	int		pos;
+	pid_t				srv_pid;
+	struct sigaction	sa;
+	int					i;
 
-	i = 2;
+	sa.sa_handler = &handler;
+	sa.sa_flags = SA_RESTART;
+	sigemptyset(&sa.sa_mask);
+	sigaction(SIGUSR1, &sa, NULL);
 	srv_pid = ft_atoi(argv[1]);
+	i = 2;
 	while (i < argc)
 	{
-		str_len = ft_strlen(argv[i]);
-		j = 0;
-		while (j != str_len)
-		{
-			pos = 7;
-			while (pos > -1)
-			{
-				if (((argv[i][j] >> pos) & 1) == 1)
-				{
-					kill(srv_pid, SIGUSR2);
-					usleep(25);
-				}
-				else
-				{
-					kill(srv_pid, SIGUSR1);
-					usleep(25);
-				}
-				pos--;
-			}
-			j++;
-		}
-		pos = 7;
-		if (j == str_len)
-		{
-			while (pos > -1)
-			{
-				kill(srv_pid, SIGUSR1);
-				usleep(25);
-				pos--;
-			}
-			i++;
-		}
-		ft_printf("END OF MESSAGE");
-		kill(getpid(), SIGKILL);
+		send_string(srv_pid, argv[i]);
+		i++;
 	}
+	ft_printf("END OF MESSAGE\n");
 	return (0);
 }

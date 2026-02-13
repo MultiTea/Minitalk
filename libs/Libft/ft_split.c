@@ -6,7 +6,7 @@
 /*   By: lbolea <lbolea@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/19 15:22:36 by lbolea            #+#    #+#             */
-/*   Updated: 2025/11/21 17:14:43 by lbolea           ###   ########.fr       */
+/*   Updated: 2026/02/13 14:59:11 by lbolea           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,8 +76,8 @@ static int	add_words(char **array, char const *s, char c)
 				ft_free(array, j);
 				return (0);
 			}
+			j++;
 		}
-		j++;
 	}
 	return (1);
 }
