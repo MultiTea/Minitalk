@@ -6,7 +6,7 @@
 /*   By: lbolea <lbolea@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/11 11:21:57 by lbolea            #+#    #+#             */
-/*   Updated: 2026/02/14 00:11:30 by lbolea           ###   ########.fr       */
+/*   Updated: 2026/02/14 20:36:55 by lbolea           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,5 +22,8 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
+
+# define BUSY 1
+# define READY 0
 
 #endif
