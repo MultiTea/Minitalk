@@ -6,7 +6,7 @@
 /*   By: lbolea <lbolea@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/11 11:21:36 by lbolea            #+#    #+#             */
-/*   Updated: 2026/02/15 00:16:10 by lbolea           ###   ########.fr       */
+/*   Updated: 2026/02/15 16:00:49 by lbolea           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,15 @@ int	send_bit(int pid, unsigned char b)
 		{
 			if (kill(pid, SIGUSR2) == -1)
 				return ((ft_printf("\033[0);41m ✘ \033[0m \
-					\033[1;41m ERROR \033[0;1m"), 0));
+					\033[1;41m ERROR \033[0;1m"),
+							0));
 		}
 		else
 		{
 			if (kill(pid, SIGUSR1) == -1)
 				return ((ft_printf("\033[0);41m ✘ \033[0m \
-					\033[1;41m ERROR \033[0;1m"), 0));
+					\033[1;41m ERROR \033[0;1m"),
+							0));
 		}
 		while (g_ack == READY)
 			usleep(5);
@@ -69,13 +71,13 @@ int	error_handler(int argc, char **argv, pid_t pid)
 a server PID and a message.");
 		return (1);
 	}
-	else if (ft_strlen(argv[1]) < 6 || kill(pid, SIGUSR1) == -1 || pid == 0)
+	else if (ft_strlen(argv[1]) < 6 || kill(pid, 0) == -1 || pid == 0)
 	{
 		ft_printf("\033[0;41m ✘ \033[0m \033[1;41m ERROR \033[0;1m Please enter \
 a correct server PID.");
 		return (1);
 	}
-	else if ((!argv[2] || !argv[2][0]) && kill(pid, SIGUSR1) != -1)
+	else if ((!argv[2] || !argv[2][0]) && kill(pid, 0) != -1)
 	{
 		ft_printf("\033[0;41m ✘ \033[0m \033[1;41m ERROR \033[0;1m Please enter \
 a message.");
